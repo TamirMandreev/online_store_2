@@ -11,7 +11,7 @@ class Product(models.Model):
     # Фотография товара
     image = models.ImageField(verbose_name='Фотография')
     # Категория товара
-    category = models.ForeignKey('Category', on_delete=models.SET_NULL, related_name='products')
+    category = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='products')
     # Цена товара
     price = models.DecimalField(max_digits=12, decimal_places=2)
     # Дата и время создания
