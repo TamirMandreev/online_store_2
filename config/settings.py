@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 
 import os
+
+from django.conf.global_settings import MEDIA_URL
 from dotenv import load_dotenv
 
 # Загрузить из файла .env переменные окружения в глобальный объект os.environ
@@ -133,3 +135,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Префикс, который будет добавлен перед путями к медиа файлам
+MEDIA_URL = '/media/'
+
+# Корневая директория, в которой хранятся медиа файлы
+MEDIA_ROOT = BASE_DIR / 'media'
