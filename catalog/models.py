@@ -9,7 +9,7 @@ class Product(models.Model):
     # Описание товара
     description = models.TextField(blank=True, null=True, verbose_name='Описание', help_text='Введите описание товара')
     # Фотография товара
-    image = models.ImageField(verbose_name='Фотография')
+    image = models.ImageField(verbose_name='Фотография', blank=True, null=True, upload_to='images/')
     # Категория товара
     category = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='products')
     # Цена товара
