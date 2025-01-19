@@ -19,6 +19,10 @@ class Product(models.Model):
     # Дата и время последнего изменения и
     updated_at = models.DateTimeField(auto_now=True)
 
+    # Переопределить метод __str__
+    def __str__(self):
+        return self.name
+
     # Добавить дополнительную информацию о самой модели Product
     class Meta:
         # Человеко-понятное название модели в единственном числе
@@ -36,6 +40,10 @@ class Category(models.Model):
     name = models.CharField(max_length=150, verbose_name='Наименование')
     # Описание категории
     description = models.TextField(blank=True, null=True, verbose_name='Описание', help_text='Введите описание категории')
+
+    # Переопределить метод __str__
+    def __str__(self):
+        return self.name
 
     # Добавить дополнительную информацию о самой модели Category
     class Meta:
