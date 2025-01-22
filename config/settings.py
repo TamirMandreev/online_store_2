@@ -12,6 +12,14 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+import os
+
+from django.conf.global_settings import MEDIA_URL
+from dotenv import load_dotenv
+
+# Загрузить из файла .env переменные окружения в глобальный объект os.environ
+load_dotenv(override=True)
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,10 +28,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-lxo!9dn@99oz!4fyhk=6$01))3k1s&z=4*la3stm=jx=b08!wy'
+SECRET_KEY = os.getenv('SECRET_KEY') # Получить значение переменной окружения с именем "SECRET_KEY"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True if os.getenv('DEBUG') == 'True' else False # Если переменная окружения с именем 'DEBUG' == 'True, то присваиваем переменной DEBUG значение True, иначе False'
 
 ALLOWED_HOSTS = []
 
@@ -76,8 +84,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # Получить значения переменных окружения с именами 'NAME', 'USER', 'PASSWORD', 'HOST', 'PORT'
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
+        'HOST': os.getenv('HOST'),
+        'PORT': os.getenv('PORT'),
     }
 }
 
@@ -122,3 +135,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Префикс, который будет добавлен перед путями к медиа файлам
+MEDIA_URL = '/media/'
+
+# Корневая директория, в которой хранятся медиа файлы
+MEDIA_ROOT = BASE_DIR / 'media'

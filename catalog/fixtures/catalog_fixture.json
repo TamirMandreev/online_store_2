@@ -1,0 +1,130 @@
+[
+{
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+        "name": "Huawei Matebook",
+        "description": "Маленький, легкий, мощный. Для работы и учебы",
+        "image": "",
+        "category": 1,
+        "price": "99999.99",
+        "created_at": "2025-01-19T04:56:36.487Z",
+        "updated_at": "2025-01-19T04:56:36.487Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+        "name": "Lenovo Matebook",
+        "description": "Быстрый, мощный, модульный. Для игр",
+        "image": "",
+        "category": 1,
+        "price": "199999.99",
+        "created_at": "2025-01-19T04:57:30.537Z",
+        "updated_at": "2025-01-19T04:57:30.537Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+        "name": "Apple Macbook",
+        "description": "Стильный, мощный, удобный. Для тех, кто привык к комфорту",
+        "image": "",
+        "category": 1,
+        "price": "299999.99",
+        "created_at": "2025-01-19T04:58:40.813Z",
+        "updated_at": "2025-01-19T04:58:40.813Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+        "name": "Sumsung Watch",
+        "description": "Для тех, кто любит андроид",
+        "image": "",
+        "category": 3,
+        "price": "25000.00",
+        "created_at": "2025-01-19T05:07:56.228Z",
+        "updated_at": "2025-01-19T05:07:56.228Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+        "name": "Appl Watch",
+        "description": "Для тех, кто любит iphone",
+        "image": "",
+        "category": 3,
+        "price": "25000.00",
+        "created_at": "2025-01-19T05:08:27.912Z",
+        "updated_at": "2025-01-19T05:08:27.912Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 6,
+    "fields": {
+        "name": "Huawei Watch",
+        "description": "Для тех, кто любит Huawei",
+        "image": "",
+        "category": 3,
+        "price": "20000.00",
+        "created_at": "2025-01-19T05:09:08.613Z",
+        "updated_at": "2025-01-19T05:09:08.613Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 7,
+    "fields": {
+        "name": "Sumsung Galaxy S24",
+        "description": "Для любителей sumsung",
+        "image": "",
+        "category": 2,
+        "price": "100000.00",
+        "created_at": "2025-01-19T05:10:00.694Z",
+        "updated_at": "2025-01-19T05:10:00.694Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 9,
+    "fields": {
+        "name": "Huawei N9",
+        "description": "Для тех, кто любит Huawei",
+        "image": "",
+        "category": 2,
+        "price": "80000.00",
+        "created_at": "2025-01-19T05:11:32.852Z",
+        "updated_at": "2025-01-19T05:11:32.852Z"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+        "name": "Ноутбуки",
+        "description": "Устройства для работы и учебы"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+        "name": "Смартфоны",
+        "description": "Устройства для звонков и серфинга в интернете"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+        "name": "Смартчасы",
+        "description": "Устройства для отслеживания времени и физических данных"
+    }
+}
+]
