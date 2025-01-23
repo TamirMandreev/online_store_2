@@ -1,7 +1,10 @@
 {% extends 'catalog/base.html' %}
 
+{% block main_menu %}
+{% include 'catalog/includes/main_menu.html' %}
+{% endblock %}
+
 {% block content %}
-{% include 'catalog/includes/promotion.html' %}
 
 <div class="col-12 row text-center">
     {% for product in products %}
