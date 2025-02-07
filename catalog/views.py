@@ -3,13 +3,12 @@ from django.shortcuts import render, get_object_or_404
 
 # Импортируем необходимые классы из django.views.generic
 # ListView упрощает отображение списка объектов модели
-from django.views.generic import ListView
+# TemplateView просто отображает HTMl-шаблон
+from django.views.generic import ListView, TemplateView
 
 from catalog.models import Product
 
-
 # Create your views here.
-
 
 # Создать контроллер (представление) домашней страницы
 class ProductListView(ListView):
@@ -20,23 +19,20 @@ class ProductListView(ListView):
     # Задать имя переменной, под которой список объектов будет доступен в шаблоне
     context_object_name = 'products'
 
-# # Создать контроллер (представление) домашней страницы
-# def home(request):
-#     # Получить все объекты модели Product
-#     products = Product.objects.all()
-#     # Сформировать контекст для передачи данных в шаблон
-#     context = {
-#        'products': products
-#     }
-#     # Возвратить клиенту отрендеренную HTML-страницу
-#     return render(request, 'catalog/home.html', context=context)
-
 # Создать контроллер (представление) страницы обратной связи
-def contacts(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        return HttpResponse(f'Спасибо, {name}! Сообщение получено')
-    return render(request, 'catalog/contacts.html')
+class ContactsView(TemplateView):
+    # Указать модель, с которой будет работать контроллер (представление)
+    model = Product
+    # Указать шаблон отображаемой html-страницы
+    template_name = 'catalog/contacts.html'
+
+
+# # Создать контроллер (представление) страницы обратной связи
+# def contacts(request):
+#     if request.method == 'POST':
+#         name = request.POST.get('name')
+#         return HttpResponse(f'Спасибо, {name}! Сообщение получено')
+#     return render(request, 'catalog/contacts.html')
 
 # Создать контроллер (представление) для отображения подробной информации о продукте
 def product_detail(request, product_id):
