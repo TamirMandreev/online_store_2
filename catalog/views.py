@@ -1,10 +1,13 @@
-from django.http import HttpResponse
+from django.urls import reverse
+
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
 # Импортируем необходимые классы из django.views.generic
 # ListView упрощает отображение списка объектов модели
 # TemplateView просто отображает HTMl-шаблон
-from django.views.generic import ListView, TemplateView
+# DetailView отображает подробную информацию об отдельном объекте модели
+from django.views.generic import ListView, TemplateView, DetailView
 
 from catalog.models import Product
 
@@ -19,20 +22,30 @@ class ProductListView(ListView):
     # Задать имя переменной, под которой список объектов будет доступен в шаблоне
     context_object_name = 'products'
 
+
 # Создать контроллер (представление) страницы обратной связи
 class ContactsView(TemplateView):
     # Указать модель, с которой будет работать контроллер (представление)
-    model = Product
+    # model = Product
     # Указать шаблон отображаемой html-страницы
     template_name = 'catalog/contacts.html'
 
+    # Переопределить метод post
+    def post(self, request, *args, **kwargs):
+        # Получаем данные из формы
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
+        message = request.POST.get('message')
+        # Выполняем необходимые действия с данными
+        print('Данные получены')
+        print(f'Name: {name}\nPhone: {phone}\nMessage: {message}')\
+        # Отправить пользователю ответ "Данные успешно отправлены"
+        return HttpResponse('Данные успешно отправлены')
 
-# # Создать контроллер (представление) страницы обратной связи
-# def contacts(request):
-#     if request.method == 'POST':
-#         name = request.POST.get('name')
-#         return HttpResponse(f'Спасибо, {name}! Сообщение получено')
-#     return render(request, 'catalog/contacts.html')
+#
+# # Создать контроллер (представление) для отображения подробной информации о продукте
+# class ProductDetailView(DetailView):
+#     model = Product
 
 # Создать контроллер (представление) для отображения подробной информации о продукте
 def product_detail(request, product_id):
