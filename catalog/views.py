@@ -25,8 +25,6 @@ class ProductListView(ListView):
 
 # Создать контроллер (представление) страницы обратной связи
 class ContactsView(TemplateView):
-    # Указать модель, с которой будет работать контроллер (представление)
-    # model = Product
     # Указать шаблон отображаемой html-страницы
     template_name = 'catalog/contacts.html'
 
@@ -42,10 +40,16 @@ class ContactsView(TemplateView):
         # Отправить пользователю ответ "Данные успешно отправлены"
         return HttpResponse('Данные успешно отправлены')
 
-#
-# # Создать контроллер (представление) для отображения подробной информации о продукте
-# class ProductDetailView(DetailView):
-#     model = Product
+
+# Создать контроллер (представление) для отображения подробной информации о продукте
+class ProductDetailView(DetailView):
+    # Указать модель, с которой будет работать контроллер (представление)
+    model = Product
+    # Указать шаблон, который будет отражать детальную информацию об объекте модели Product
+    template_name = 'catalog/product_detail.html'
+    # Задать имя переменной, под которой объект будет доступен в шаблоне
+    context_object_name = 'product'
+
 
 # Создать контроллер (представление) для отображения подробной информации о продукте
 def product_detail(request, product_id):
