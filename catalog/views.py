@@ -49,15 +49,3 @@ class ProductDetailView(DetailView):
     template_name = 'catalog/product_detail.html'
     # Задать имя переменной, под которой объект будет доступен в шаблоне
     context_object_name = 'product'
-
-
-# Создать контроллер (представление) для отображения подробной информации о продукте
-def product_detail(request, product_id):
-    # Получить объект модели Product по его id
-    product = get_object_or_404(Product, pk=product_id)
-    # Сформировать контекст для передачи данных в шаблон
-    context = {
-        'product': product
-    }
-    # Возвратить клиенту отрендеренную HTML-страницу
-    return render(request, 'catalog/product_detail.html', context=context)
