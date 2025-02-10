@@ -17,7 +17,7 @@
                 <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                     <p>{{ article.content | truncatechars:90 }}</p>
                 </ul>
-                <a href="">
+                <a href="{% url 'blog_detail' article.pk %}">
                     <button type="button" class="btn btn-lg btn-block btn-outline-primary">Подробнее</button>
                 </a>
             </div>
