@@ -1,3 +1,5 @@
+from django.urls import reverse
+
 from django.shortcuts import render
 # CreateView используется для создания нового объекта
 # ListView упрощает отображение списка объектов модели
@@ -27,7 +29,7 @@ class ArticleListView(ListView):
     # Указать модель, с которой будет работать представление
     model = Article
     # Указать шаблон, который будет использоваться для отображения списка объектов модели Article
-    template_name = 'article/home.html'
+    template_name = '/article/home.html'
     # Задать имя переменной, под которой список объектов будет доступен в шаблоне
     context_object_name = 'articles'
 
@@ -49,8 +51,10 @@ class ArticleUpdateView(UpdateView):
     fields = ['title', 'content', 'image',]
     # Указать шаблон, который будет отображать форму изменения объекта
     template_name = 'article/article_form.html'
-    # Указать маршрут, куда пользователь будет перенаправлен после успешного изменения объекта
-    success_url = '#'
+
+    # После редактирования объекта сделать редирект на страницу только что отредактированного объекта
+    def get_success_url(self):
+        return reverse('blog_detail', args=[self.kwargs.get('pk')])
 
 # Создать представление для удаления объекта модели Article
 class ArticleDeleteView(DeleteView):
