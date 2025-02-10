@@ -1,7 +1,8 @@
 from django.shortcuts import render
 # CreateView используется для создания нового объекта
 # ListView упрощает отображение списка объектов модели
-from django.views.generic import CreateView, ListView
+# DetailView отображает подробную информацию об объекте модели
+from django.views.generic import CreateView, ListView, DetailView
 
 from .models import Article
 
@@ -19,7 +20,7 @@ class ArticleCreateView(CreateView):
     # Определить маршрут, куда пользователь будет перенаправлен после успешного создания объекта
     success_url = '#'
 
-# Создать представление для отображения списка объектов модели Article
+# Создать представление для отображения списка объектов модели Article (домашняя страница блога)
 class ArticleListView(ListView):
     # Указать модель, с которой будет работать представление
     model = Article
@@ -28,3 +29,12 @@ class ArticleListView(ListView):
     # Задать имя переменной, под которой список объектов будет доступен в шаблоне
     context_object_name = 'articles'
 
+
+# Создать представление для отображения подробной информации об объекте модели Article
+class ArticleDetailView(DetailView):
+    # Указать модель, с которой будет работать представление
+    model = Article
+    # Указать шаблон, который будет использоваться для отображения подробной информации об объекте модели Article
+    template_name = 'article/article_detail.html'
+    # Задать имя переменной, под которой объект будет доступен в шаблоне
+    context_object_name = 'article'
