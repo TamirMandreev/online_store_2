@@ -2,7 +2,8 @@ from django.shortcuts import render
 # CreateView используется для создания нового объекта
 # ListView упрощает отображение списка объектов модели
 # DetailView отображает подробную информацию об объекте модели
-from django.views.generic import CreateView, ListView, DetailView
+# UpdateView используется для обновления существующего объекта
+from django.views.generic import CreateView, ListView, DetailView, UpdateView
 
 from .models import Article
 
@@ -38,3 +39,14 @@ class ArticleDetailView(DetailView):
     template_name = 'article/article_detail.html'
     # Задать имя переменной, под которой объект будет доступен в шаблоне
     context_object_name = 'article'
+
+# Создать представление для изменения объекта модели Article
+class ArticleUpdateView(UpdateView):
+    # Указать модель, с которой будет работать представление
+    model = Article
+    # Указать поля, которые будут отображаться в форме при изменении объекта
+    fields = ['title', 'content', 'image',]
+    # Указать шаблон, который будет отображать форму изменения объекта
+    template_name = 'article/article_form.html'
+    # Указать маршрут, куда пользователь будет перенаправлен после успешного изменения объекта
+    success_url = '#'
