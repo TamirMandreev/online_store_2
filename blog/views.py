@@ -33,6 +33,9 @@ class ArticleListView(ListView):
     # Задать имя переменной, под которой список объектов будет доступен в шаблоне
     context_object_name = 'articles'
 
+    # Фильтровать статьи. Выводить только те, которые имеют положительный признак публикации
+    def get_queryset(self):
+        return Article.objects.filter(is_published=True)
 
 # Создать представление для отображения подробной информации об объекте модели Article
 class ArticleDetailView(DetailView):
