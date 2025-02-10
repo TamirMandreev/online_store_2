@@ -29,7 +29,7 @@ class ArticleListView(ListView):
     # Указать модель, с которой будет работать представление
     model = Article
     # Указать шаблон, который будет использоваться для отображения списка объектов модели Article
-    template_name = '/article/home.html'
+    template_name = 'article/home.html'
     # Задать имя переменной, под которой список объектов будет доступен в шаблоне
     context_object_name = 'articles'
 
