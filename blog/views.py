@@ -43,6 +43,13 @@ class ArticleDetailView(DetailView):
     # Задать имя переменной, под которой объект будет доступен в шаблоне
     context_object_name = 'article'
 
+    # При открытии отдельной статьи увеличивать счетчик просмотров
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        self.object.views_count += 1
+        self.object.save()
+        return self.object
+
 # Создать представление для изменения объекта модели Article
 class ArticleUpdateView(UpdateView):
     # Указать модель, с которой будет работать представление
