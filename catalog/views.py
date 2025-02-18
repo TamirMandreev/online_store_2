@@ -8,7 +8,8 @@ from django.shortcuts import render, get_object_or_404
 # TemplateView просто отображает HTMl-шаблон
 # DetailView отображает подробную информацию об отдельном объекте модели
 # CreateView предоставляет простой способ создания новой записи в базе данных через веб-интерфейс
-from django.views.generic import ListView, TemplateView, DetailView, CreateView
+# UpdateView обновляет существующие объекты через веб-интерфейс
+from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView
 
 from catalog.forms import ProductForm
 from catalog.models import Product
@@ -58,6 +59,17 @@ class ProductCreateView(CreateView):
     # Указать модель, с которой будет работать представление
     model = Product
     # Интегрировать (подключить) form_class
+    form_class = ProductForm
+    # Указать шаблон, который будет использоваться для отображения формы
+    template_name = 'catalog/product_form.html'
+    # Определить URL-адрес, на который будет перенаправлен пользователь после успешной отправки формы
+    success_url = reverse_lazy('home')
+
+# Создать представление для редактирования объекта модели Product
+class ProductUpdateView(UpdateView):
+    # Указать модель, с которой будет работать представление
+    model = Product
+    # Подключить form_class
     form_class = ProductForm
     # Указать шаблон, который будет использоваться для отображения формы
     template_name = 'catalog/product_form.html'
