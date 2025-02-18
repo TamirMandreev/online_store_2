@@ -1,4 +1,4 @@
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -7,7 +7,8 @@ from django.shortcuts import render, get_object_or_404
 # ListView упрощает отображение списка объектов модели
 # TemplateView просто отображает HTMl-шаблон
 # DetailView отображает подробную информацию об отдельном объекте модели
-from django.views.generic import ListView, TemplateView, DetailView
+# CreateView предоставляет простой способ создания новой записи в базе данных через веб-интерфейс
+from django.views.generic import ListView, TemplateView, DetailView, CreateView
 
 from catalog.models import Product
 
@@ -49,3 +50,15 @@ class ProductDetailView(DetailView):
     template_name = 'catalog/product_detail.html'
     # Задать имя переменной, под которой объект будет доступен в шаблоне
     context_object_name = 'product'
+
+
+# Создать представление для создания объекта модели Product
+class ProductCreateView(CreateView):
+    # Указать модель, с которой будет работать представление
+    model = Product
+    # Определить список полей, которые будут недоступны для редактирования в форме
+    exclude = ['created_at', 'updated_at']
+    # Указать шаблон, который будет использоваться для отображения формы
+    template_name = 'catalog/product_form.html'
+    # Определить URL-адрес, на который будет перенаправлен пользователь после успешной отправки формы
+    success_url = reverse_lazy('home')
