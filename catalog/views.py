@@ -10,6 +10,7 @@ from django.shortcuts import render, get_object_or_404
 # CreateView предоставляет простой способ создания новой записи в базе данных через веб-интерфейс
 from django.views.generic import ListView, TemplateView, DetailView, CreateView
 
+from catalog.forms import ProductForm
 from catalog.models import Product
 
 # Create your views here.
@@ -56,10 +57,8 @@ class ProductDetailView(DetailView):
 class ProductCreateView(CreateView):
     # Указать модель, с которой будет работать представление
     model = Product
-    # Указать список полей, которые будут доступны для редактирования в форме
-    fields = '__all__'
-    # Определить список полей, которые будут недоступны для редактирования в форме
-    exclude = ['created_at', 'updated_at']
+    # Интегрировать (подключить) form_class
+    form_class = ProductForm
     # Указать шаблон, который будет использоваться для отображения формы
     template_name = 'catalog/product_form.html'
     # Определить URL-адрес, на который будет перенаправлен пользователь после успешной отправки формы
