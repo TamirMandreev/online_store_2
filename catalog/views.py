@@ -9,7 +9,8 @@ from django.shortcuts import render, get_object_or_404
 # DetailView отображает подробную информацию об отдельном объекте модели
 # CreateView предоставляет простой способ создания новой записи в базе данных через веб-интерфейс
 # UpdateView обновляет существующие объекты через веб-интерфейс
-from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView
+# DeleteView удаляет объект. (Отображает страницу подтверждения удаления и обрабатывает запрос на удаление)
+from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView, DeleteView
 
 from catalog.forms import ProductForm
 from catalog.models import Product
@@ -75,3 +76,13 @@ class ProductUpdateView(UpdateView):
     template_name = 'catalog/product_form.html'
     # Определить URL-адрес, на который будет перенаправлен пользователь после успешной отправки формы
     success_url = reverse_lazy('home')
+
+# Создать представление для удаления объекта модели Product
+class ProductDeleteView(DeleteView):
+    # Указать модель, с которой будет работать представление
+    model = Product
+    # Указать шаблон, который будет использоваться для отображения формы
+    template_name = 'catalog/product_confirm_delete.html'
+    # Определить URL-адрес, на который будет перенаправлен пользователь после успешной отправки формы
+    success_url = reverse_lazy('home')
+
