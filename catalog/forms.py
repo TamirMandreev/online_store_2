@@ -40,11 +40,13 @@ class ProductForm(forms.ModelForm):
     # Определить метод для валидации и очистки данных, введенных пользователем в поле description
     def clean_description(self):
         # Получить значение поля name
-        description = self.cleaned_data['description']
-        # Реализовать проверку на запрещенные слова
-        for word in self.forbidden_words:
-            if word in description.lower():
-                raise ValidationError(f'Слово "{word}" нельзя использовать в описании продукта')
+        description = self.cleaned_data.get('description')
+        # Если поле description True
+        if description:
+            # Реализовать проверку на запрещенные слова
+            for word in self.forbidden_words:
+                if word in description.lower():
+                    raise ValidationError(f'Слово "{word}" нельзя использовать в описании продукта')
         # Возвратить описание продукта
         return description
 
