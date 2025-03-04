@@ -14,7 +14,7 @@ from pathlib import Path
 
 import os
 
-from django.conf.global_settings import MEDIA_URL
+from django.conf.global_settings import MEDIA_URL, LOGIN_REDIRECT_URL
 from dotenv import load_dotenv
 
 # Загрузить из файла .env переменные окружения в глобальный объект os.environ
@@ -147,3 +147,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Параметр AUTH_USER_MODEL указывает на модель пользователя, которую проект
 # будет использовать вместо стандартной модели django.contrib.auth.models.User
 AUTH_USER_MODEL = 'users.User'
+
+# URL-адреса, на которые пользователь будет перенаправляться после успешной аутентификации или выхода из учетной записи
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
