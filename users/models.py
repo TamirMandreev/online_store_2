@@ -9,16 +9,17 @@ class User(AbstractUser):
     # Удалить поле username
     username = None
     # Использовать email как уникальный идентификатор
-    email = models.EmailField(unique=True, verbose_name="Email Address",)
+    email = models.EmailField(unique=True, verbose_name="Email",)
     # Добавить поле для указания номера телефона
-    phone = models.CharField(max_length=20, verbose_name="Phone Number", blank=True, null=True, help_text="Введите номер телефона")
+    phone = models.CharField(max_length=20, verbose_name="Номер телефона", blank=True, null=True, help_text="Введите номер телефона")
     # Добавить поле для загрузки аватара (изображения)
-    avatar = models.ImageField(upload_to="users/avatars/", verbose_name='Avatar', null=True, blank=True, help_text='Загрузите свой аватар')
+    avatar = models.ImageField(upload_to="users/avatars/", verbose_name='Аватар', null=True, blank=True, help_text='Загрузите свой аватар')
     # Добавить поле для указания страны
-    country = models.CharField(max_length=255, verbose_name="Country", null=True, blank=True, help_text='Введите страну')
+    country = models.CharField(max_length=255, verbose_name="Страна", null=True, blank=True, help_text='Введите страну')
 
     # Определить поле email как поле для авторизации
     USERNAME_FIELD = ("email")
+    REQUIRED_FIELDS = []
 
     # Добавить дополнительную информацию о самой модели User
     class Meta:
