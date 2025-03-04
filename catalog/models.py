@@ -7,7 +7,7 @@ class Product(models.Model):
     # Наименование товара
     name = models.CharField(max_length=150, verbose_name='Наименование')
     # Описание товара
-    description = models.TextField(blank=True, null=True, verbose_name='Описание', help_text='Введите описание товара')
+    description = models.TextField(blank=True, null=True, verbose_name='Описание', help_text='')
     # Фотография товара
     image = models.ImageField(verbose_name='Фотография', blank=True, null=True, upload_to='images/')
     # Категория товара

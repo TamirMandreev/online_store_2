@@ -1,4 +1,4 @@
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -7,8 +7,12 @@ from django.shortcuts import render, get_object_or_404
 # ListView упрощает отображение списка объектов модели
 # TemplateView просто отображает HTMl-шаблон
 # DetailView отображает подробную информацию об отдельном объекте модели
-from django.views.generic import ListView, TemplateView, DetailView
+# CreateView предоставляет простой способ создания новой записи в базе данных через веб-интерфейс
+# UpdateView обновляет существующие объекты через веб-интерфейс
+# DeleteView удаляет объект. (Отображает страницу подтверждения удаления и обрабатывает запрос на удаление)
+from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView, DeleteView
 
+from catalog.forms import ProductForm
 from catalog.models import Product
 
 # Create your views here.
@@ -49,3 +53,36 @@ class ProductDetailView(DetailView):
     template_name = 'catalog/product_detail.html'
     # Задать имя переменной, под которой объект будет доступен в шаблоне
     context_object_name = 'product'
+
+
+# Создать представление для создания объекта модели Product
+class ProductCreateView(CreateView):
+    # Указать модель, с которой будет работать представление
+    model = Product
+    # Интегрировать (подключить) form_class
+    form_class = ProductForm
+    # Указать шаблон, который будет использоваться для отображения формы
+    template_name = 'catalog/product_form.html'
+    # Определить URL-адрес, на который будет перенаправлен пользователь после успешной отправки формы
+    success_url = reverse_lazy('home')
+
+# Создать представление для редактирования объекта модели Product
+class ProductUpdateView(UpdateView):
+    # Указать модель, с которой будет работать представление
+    model = Product
+    # Подключить form_class
+    form_class = ProductForm
+    # Указать шаблон, который будет использоваться для отображения формы
+    template_name = 'catalog/product_form.html'
+    # Определить URL-адрес, на который будет перенаправлен пользователь после успешной отправки формы
+    success_url = reverse_lazy('home')
+
+# Создать представление для удаления объекта модели Product
+class ProductDeleteView(DeleteView):
+    # Указать модель, с которой будет работать представление
+    model = Product
+    # Указать шаблон, который будет использоваться для отображения формы
+    template_name = 'catalog/product_confirm_delete.html'
+    # Определить URL-адрес, на который будет перенаправлен пользователь после успешной отправки формы
+    success_url = reverse_lazy('home')
+
