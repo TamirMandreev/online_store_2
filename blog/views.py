@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 
 from django.shortcuts import render
@@ -14,7 +15,7 @@ from .models import Article
 # Create your views here.
 
 # Создать представление для создания объекта модели Article
-class ArticleCreateView(CreateView):
+class ArticleCreateView(LoginRequiredMixin, CreateView):
     # Указать модель, с которой будет работать представление
     model = Article
     # Определить поля, которые будут отображаться в форме при создании объекта
@@ -25,7 +26,7 @@ class ArticleCreateView(CreateView):
     success_url = '#'
 
 # Создать представление для отображения списка объектов модели Article (домашняя страница блога)
-class ArticleListView(ListView):
+class ArticleListView(LoginRequiredMixin, ListView):
     # Указать модель, с которой будет работать представление
     model = Article
     # Указать шаблон, который будет использоваться для отображения списка объектов модели Article
@@ -38,7 +39,7 @@ class ArticleListView(ListView):
         return Article.objects.filter(is_published=True)
 
 # Создать представление для отображения подробной информации об объекте модели Article
-class ArticleDetailView(DetailView):
+class ArticleDetailView(LoginRequiredMixin, DetailView):
     # Указать модель, с которой будет работать представление
     model = Article
     # Указать шаблон, который будет использоваться для отображения подробной информации об объекте модели Article
@@ -54,7 +55,7 @@ class ArticleDetailView(DetailView):
         return self.object
 
 # Создать представление для изменения объекта модели Article
-class ArticleUpdateView(UpdateView):
+class ArticleUpdateView(LoginRequiredMixin, UpdateView):
     # Указать модель, с которой будет работать представление
     model = Article
     # Указать поля, которые будут отображаться в форме при изменении объекта
@@ -67,7 +68,7 @@ class ArticleUpdateView(UpdateView):
         return reverse('blog_detail', args=[self.kwargs.get('pk')])
 
 # Создать представление для удаления объекта модели Article
-class ArticleDeleteView(DeleteView):
+class ArticleDeleteView(LoginRequiredMixin, DeleteView):
     # Указать модель, с которой будет работать представление
     model = Article
     # Указать шаблон, который будет отображать страницу удаления объекта
