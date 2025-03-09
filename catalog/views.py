@@ -1,6 +1,7 @@
 # Класс LoginRequiredMixin обеспечивает защиту представлений.
 # Доступ к представлениям доступен только аутентифицированным пользователям
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.urls import reverse, reverse_lazy
 
 from django.http import HttpResponse, HttpResponseRedirect
@@ -94,6 +95,10 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         elif user.has_perm('catalog.can_unpublish_product'):
             # Вернуть форму для группы "Модератор продуктов"
             return ProductModeratorForm
+        # Иначе
+        else:
+            # Вызвать исключение "Доступ запрещен"
+            raise PermissionDenied
 
 
 # Создать представление для удаления объекта модели Product
