@@ -15,7 +15,7 @@ from django.shortcuts import render, get_object_or_404
 # DeleteView удаляет объект. (Отображает страницу подтверждения удаления и обрабатывает запрос на удаление)
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView, DeleteView
 
-from catalog.forms import ProductForm
+from catalog.forms import ProductForm, ProductModeratorForm
 from catalog.models import Product
 
 # Create your views here.
@@ -82,6 +82,20 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     # Определить URL-адрес, на который будет перенаправлен пользователь после успешной отправки формы
     success_url = reverse_lazy('home')
 
+    # Вернуть класс формы, который будет использоваться для обработки ввода данных от пользователя
+    def get_form_class(self):
+        # Получить пользователя, отправившего запрос
+        user = self.request.user
+        # Если пользователь - суперюзер
+        if user.is_superuser:
+            # Вернуть полную форму
+            return ProductForm
+        # Если пользователь имеет право can_unpublish_product
+        elif user.has_perm('catalog.can_unpublish_product'):
+            # Вернуть форму для группы "Модератор продуктов"
+            return ProductModeratorForm
+
+
 # Создать представление для удаления объекта модели Product
 # Сделать его доступным только для зарегистрированных пользователей
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
@@ -91,4 +105,6 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'catalog/product_confirm_delete.html'
     # Определить URL-адрес, на который будет перенаправлен пользователь после успешной отправки формы
     success_url = reverse_lazy('home')
+
+
 
