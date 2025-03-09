@@ -14,6 +14,8 @@ class Product(models.Model):
     category = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='products')
     # Цена товара
     price = models.DecimalField(max_digits=12, decimal_places=2)
+    # Статус публикации
+    is_published = models.BooleanField(default=False, blank=True, null=True, verbose_name='Статус публикации')
     # Дата и время создания
     created_at = models.DateTimeField(auto_now_add=True)
     # Дата и время последнего изменения и
