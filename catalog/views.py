@@ -1,6 +1,7 @@
 # Класс LoginRequiredMixin обеспечивает защиту представлений.
 # Доступ к представлениям доступен только аутентифицированным пользователям
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse, reverse_lazy
 
@@ -103,13 +104,13 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 
 # Создать представление для удаления объекта модели Product
 # Сделать его доступным только для зарегистрированных пользователей
-class ProductDeleteView(LoginRequiredMixin, DeleteView):
+# Проверять права доступа
+class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     # Указать модель, с которой будет работать представление
     model = Product
     # Указать шаблон, который будет использоваться для отображения формы
     template_name = 'catalog/product_confirm_delete.html'
     # Определить URL-адрес, на который будет перенаправлен пользователь после успешной отправки формы
     success_url = reverse_lazy('home')
-
-
-
+    # Проверить, имеет ли пользователь разрешения
+    permission_required = ('catalog.delete_product')
