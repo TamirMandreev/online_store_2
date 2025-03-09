@@ -35,6 +35,10 @@ class Product(models.Model):
         ordering = ['name']
         # Имя таблицы в базе данных, которое будет соответствовать данной модели
         db_table = 'Товары'
+        # Кастомные разрешения
+        permissions = [
+            ('can_unpublish_product', 'Can unpublish product'),
+        ]
 
 # Создать модель Category
 class Category(models.Model):
