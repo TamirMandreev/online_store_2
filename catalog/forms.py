@@ -59,3 +59,12 @@ class ProductForm(forms.ModelForm):
             raise ValidationError(f'Цена не может быть отрицательной')
         # Возвратить цену
         return price
+
+# Форма для группы "Модератор продуктов"
+class ProductModeratorForm(forms.ModelForm):
+    # Указать метаданные формы
+    class Meta:
+        # Указать модель, на которой будет основана форма
+        model = Product
+        # Определить поля, которые следует включить в форму
+        fields = ['is_published']
