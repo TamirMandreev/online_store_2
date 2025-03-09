@@ -1,3 +1,6 @@
+# Класс LoginRequiredMixin обеспечивает защиту представлений.
+# Доступ к представлениям доступен только аутентифицированным пользователям
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
 
 from django.http import HttpResponse, HttpResponseRedirect
@@ -28,7 +31,7 @@ class ProductListView(ListView):
 
 
 # Создать контроллер (представление) страницы обратной связи
-class ContactsView(TemplateView):
+class ContactsView(LoginRequiredMixin, TemplateView):
     # Указать шаблон отображаемой html-страницы
     template_name = 'catalog/contacts.html'
 
@@ -46,7 +49,7 @@ class ContactsView(TemplateView):
 
 
 # Создать контроллер (представление) для отображения подробной информации о продукте
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     # Указать модель, с которой будет работать контроллер (представление)
     model = Product
     # Указать шаблон, который будет отражать детальную информацию об объекте модели Product
@@ -56,7 +59,8 @@ class ProductDetailView(DetailView):
 
 
 # Создать представление для создания объекта модели Product
-class ProductCreateView(CreateView):
+# Сделать его доступным только для зарегистрированных пользователей
+class ProductCreateView(LoginRequiredMixin, CreateView):
     # Указать модель, с которой будет работать представление
     model = Product
     # Интегрировать (подключить) form_class
@@ -67,7 +71,8 @@ class ProductCreateView(CreateView):
     success_url = reverse_lazy('home')
 
 # Создать представление для редактирования объекта модели Product
-class ProductUpdateView(UpdateView):
+# Сделать его доступным только для зарегистрированных пользователей
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     # Указать модель, с которой будет работать представление
     model = Product
     # Подключить form_class
@@ -78,7 +83,8 @@ class ProductUpdateView(UpdateView):
     success_url = reverse_lazy('home')
 
 # Создать представление для удаления объекта модели Product
-class ProductDeleteView(DeleteView):
+# Сделать его доступным только для зарегистрированных пользователей
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     # Указать модель, с которой будет работать представление
     model = Product
     # Указать шаблон, который будет использоваться для отображения формы

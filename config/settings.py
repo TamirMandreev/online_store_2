@@ -14,7 +14,7 @@ from pathlib import Path
 
 import os
 
-from django.conf.global_settings import MEDIA_URL
+from django.conf.global_settings import MEDIA_URL, LOGIN_REDIRECT_URL
 from dotenv import load_dotenv
 
 # Загрузить из файла .env переменные окружения в глобальный объект os.environ
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'catalog.apps.CatalogConfig',
     'blog.apps.BlogConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -142,3 +143,25 @@ MEDIA_URL = '/media/'
 
 # Корневая директория, в которой хранятся медиа файлы
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Параметр AUTH_USER_MODEL указывает на модель пользователя, которую проект
+# будет использовать вместо стандартной модели django.contrib.auth.models.User
+AUTH_USER_MODEL = 'users.User'
+
+# URL-адреса, на которые пользователь будет перенаправляться после успешной аутентификации или выхода из учетной записи
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+# Настройки для работы с почтой
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# URL, на который будет перенаправляться неаутентифицированный пользователь,
+# если он пытается получить доступ к защищенному представлению, требующему аутентификации
+LOGIN_URL = '/users/login/'
