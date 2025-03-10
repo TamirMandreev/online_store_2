@@ -13,7 +13,7 @@ class ProductForm(forms.ModelForm):
         # Указать модель, на которой будет основана форма
         model = Product
         # Определить, какие поля следует исключить из формы
-        exclude = ['created_at', 'updated_at']
+        exclude = ['created_at', 'updated_at', 'owner']
 
     # Конструктор формы
     def __init__(self, *args, **kwargs):

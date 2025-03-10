@@ -72,6 +72,16 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     # Определить URL-адрес, на который будет перенаправлен пользователь после успешной отправки формы
     success_url = reverse_lazy('home')
 
+    # Добавить дополнительную логику
+    def form_valid(self, form):
+        # Получить текущего пользователя
+        user = self.request.user
+        # Присвоить текущего пользователя полю owner перед сохранением формы
+        form.instance.owner = user
+        # Вызвать базовую реализацию метода
+        return super().form_valid(form)
+
+
 # Создать представление для редактирования объекта модели Product
 # Сделать его доступным только для зарегистрированных пользователей
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
