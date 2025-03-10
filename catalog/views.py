@@ -98,8 +98,10 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     def get_form_class(self):
         # Получить пользователя, отправившего запрос
         user = self.request.user
-        # Если пользователь - суперюзер
-        if user.is_superuser:
+        # Получить продукт, который будет редактироваться
+        product = Product.objects.get(pk=self.kwargs['pk'])
+        # Если пользователь - суперюзер или пользователь - владелец продукта
+        if user.is_superuser or user == product.owner:
             # Вернуть полную форму
             return ProductForm
         # Если пользователь имеет право can_unpublish_product
