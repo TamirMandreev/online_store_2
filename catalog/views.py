@@ -19,6 +19,8 @@ from django.views.generic import ListView, TemplateView, DetailView, CreateView,
 
 from catalog.forms import ProductForm, ProductModeratorForm
 from catalog.models import Product
+from catalog.services import get_products_from_cache
+
 
 # Create your views here.
 
@@ -30,6 +32,23 @@ class ProductListView(ListView):
     template_name = 'catalog/home.html'
     # Задать имя переменной, под которой список объектов будет доступен в шаблоне
     context_object_name = 'products'
+
+
+# Создать представление списка всех продуктов по указанной категории
+class ProductListViewByCategory(ListView):
+    # Указать модель, с которой будет работать представление
+    model = Product
+    # Указать шаблон, который будет использоваться для отображения списка продуктов по категории
+    template_name = 'catalog/product_list_by_category.html'
+    # Задать имя переменной, под которой список объектов будет доступен в шаблоне
+    context_object_name = 'products'
+
+    # Изменить набор данных, которые будут переданы в шаблон для отображения
+    def get_queryset(self):
+        # Извлечь из URL параметр category_name
+        category_name = self.kwargs.get('category_name')
+        # Возвратить список всех продуктов из категории
+        return get_products_from_cache(category_name)
 
 
 # Создать контроллер (представление) страницы обратной связи
