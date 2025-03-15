@@ -1,5 +1,8 @@
 from django.db import models
 
+from users.models import User
+
+
 # Create your models here.
 
 # Создать модель Product
@@ -14,6 +17,10 @@ class Product(models.Model):
     category = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='products')
     # Цена товара
     price = models.DecimalField(max_digits=12, decimal_places=2)
+    # Статус публикации
+    is_published = models.BooleanField(default=False, blank=True, null=True, verbose_name='Статус публикации')
+    # Владелец
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Владелец', related_name='products')
     # Дата и время создания
     created_at = models.DateTimeField(auto_now_add=True)
     # Дата и время последнего изменения и
@@ -33,6 +40,10 @@ class Product(models.Model):
         ordering = ['name']
         # Имя таблицы в базе данных, которое будет соответствовать данной модели
         db_table = 'Товары'
+        # Кастомные разрешения
+        permissions = [
+            ('can_unpublish_product', 'Can unpublish product'),
+        ]
 
 # Создать модель Category
 class Category(models.Model):

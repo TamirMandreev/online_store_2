@@ -13,7 +13,7 @@ class ProductForm(forms.ModelForm):
         # Указать модель, на которой будет основана форма
         model = Product
         # Определить, какие поля следует исключить из формы
-        exclude = ['created_at', 'updated_at']
+        exclude = ['created_at', 'updated_at', 'owner']
 
     # Конструктор формы
     def __init__(self, *args, **kwargs):
@@ -59,3 +59,12 @@ class ProductForm(forms.ModelForm):
             raise ValidationError(f'Цена не может быть отрицательной')
         # Возвратить цену
         return price
+
+# Форма для группы "Модератор продуктов"
+class ProductModeratorForm(forms.ModelForm):
+    # Указать метаданные формы
+    class Meta:
+        # Указать модель, на которой будет основана форма
+        model = Product
+        # Определить поля, которые следует включить в форму
+        fields = ['is_published']

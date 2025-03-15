@@ -1,6 +1,8 @@
 # Класс LoginRequiredMixin обеспечивает защиту представлений.
 # Доступ к представлениям доступен только аутентифицированным пользователям
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.urls import reverse, reverse_lazy
 
 from django.http import HttpResponse, HttpResponseRedirect
@@ -15,7 +17,7 @@ from django.shortcuts import render, get_object_or_404
 # DeleteView удаляет объект. (Отображает страницу подтверждения удаления и обрабатывает запрос на удаление)
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView, DeleteView
 
-from catalog.forms import ProductForm
+from catalog.forms import ProductForm, ProductModeratorForm
 from catalog.models import Product
 
 # Create your views here.
@@ -70,6 +72,16 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     # Определить URL-адрес, на который будет перенаправлен пользователь после успешной отправки формы
     success_url = reverse_lazy('home')
 
+    # Добавить дополнительную логику
+    def form_valid(self, form):
+        # Получить текущего пользователя
+        user = self.request.user
+        # Присвоить текущего пользователя полю owner перед сохранением формы
+        form.instance.owner = user
+        # Вызвать базовую реализацию метода
+        return super().form_valid(form)
+
+
 # Создать представление для редактирования объекта модели Product
 # Сделать его доступным только для зарегистрированных пользователей
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
@@ -82,8 +94,29 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     # Определить URL-адрес, на который будет перенаправлен пользователь после успешной отправки формы
     success_url = reverse_lazy('home')
 
+    # Вернуть класс формы, который будет использоваться для обработки ввода данных от пользователя
+    def get_form_class(self):
+        # Получить пользователя, отправившего запрос
+        user = self.request.user
+        # Получить продукт, который будет редактироваться
+        product = Product.objects.get(pk=self.kwargs['pk'])
+        # Если пользователь - суперюзер или пользователь - владелец продукта
+        if user.is_superuser or user == product.owner:
+            # Вернуть полную форму
+            return ProductForm
+        # Если пользователь имеет право can_unpublish_product
+        elif user.has_perm('catalog.can_unpublish_product'):
+            # Вернуть форму для группы "Модератор продуктов"
+            return ProductModeratorForm
+        # Иначе
+        else:
+            # Вызвать исключение "Доступ запрещен"
+            raise PermissionDenied
+
+
 # Создать представление для удаления объекта модели Product
 # Сделать его доступным только для зарегистрированных пользователей
+# Проверять права доступа
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     # Указать модель, с которой будет работать представление
     model = Product
@@ -91,4 +124,18 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'catalog/product_confirm_delete.html'
     # Определить URL-адрес, на который будет перенаправлен пользователь после успешной отправки формы
     success_url = reverse_lazy('home')
+
+    # Изменить параметры получения объекта модели, который нужно удалить
+    def get_object(self, queryset=None):
+        # Получить объект модели
+        obj = super().get_object(queryset)
+        # Если пользователь является владельцем продукта или имеет разрешение на удаление
+        if self.request.user == obj.owner or self.request.user.has_perm('catalog.delete_product'):
+            # Вернуть объект. Он будет удаляться дальше
+            return obj
+        # Иначе
+        else:
+            # Вызвать исключение "Доступ запрещен"
+            raise PermissionDenied
+
 
