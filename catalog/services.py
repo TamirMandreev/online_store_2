@@ -23,7 +23,7 @@ def get_products_from_cache(category_name):
         return products_list_by_category
 
     # Получить список продуктов по категории из кэша
-    products_list_by_category = cache.get('category_name')
+    products_list_by_category = cache.get('products_list_by_category')
     # Если products_list_by_category не пустой
     if products_list_by_category is not None:
         # Возвратить список продуктов по категори
@@ -32,6 +32,8 @@ def get_products_from_cache(category_name):
     else:
         # Получить список всех продуктов по категории из базы данных
         products_list_by_category = Product.objects.filter(category=category)
+        # Записать список всех продуктов по категории в кэш
+        cache.set('products_list_by_category', products_list_by_category)
         # Возвратить список продуктов по категории
         return products_list_by_category
 
