@@ -165,3 +165,13 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # URL, на который будет перенаправляться неаутентифицированный пользователь,
 # если он пытается получить доступ к защищенному представлению, требующему аутентификации
 LOGIN_URL = '/users/login/'
+
+# Настройки кэширования
+CACHE_ENABLED = True
+if CACHE_ENABLED:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+            'LOCATION': os.getenv('LOCATION'),
+        }
+    }
