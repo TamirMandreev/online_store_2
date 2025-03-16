@@ -1,9 +1,9 @@
-from django.shortcuts import get_object_or_404
-
-from config.settings import CACHE_ENABLED
-from .models import Product, Category
 # cache - интерфейс для работы с различными системами кэширования
 from django.core.cache import cache
+from django.shortcuts import get_object_or_404
+
+from .models import Product, Category
+from django.conf import settings
 
 
 def get_products_from_cache(category_name):
@@ -16,7 +16,7 @@ def get_products_from_cache(category_name):
     category = get_object_or_404(Category, name=category_name)
 
     # Если кэширование выключено
-    if not CACHE_ENABLED:
+    if not settings.CACHE_ENABLED:
         # Получить список всех продуктов по категории из базы данных
         products_list_by_category = Product.objects.filter(category=category)
         # Возвратить список продуктов
@@ -36,9 +36,3 @@ def get_products_from_cache(category_name):
         cache.set('products_list_by_category', products_list_by_category)
         # Возвратить список продуктов по категории
         return products_list_by_category
-
-
-
-
-
-
