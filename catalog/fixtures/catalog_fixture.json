@@ -5,11 +5,13 @@
     "fields": {
         "name": "Huawei Matebook",
         "description": "Маленький, легкий, мощный. Для работы и учебы",
-        "image": "",
+        "image": "images/MateBook-2-1000x600.jpg",
         "category": 1,
         "price": "99999.99",
+        "is_published": false,
+        "owner": null,
         "created_at": "2025-01-19T04:56:36.487Z",
-        "updated_at": "2025-01-19T04:56:36.487Z"
+        "updated_at": "2025-03-15T10:36:02.027Z"
     }
 },
 {
@@ -18,11 +20,13 @@
     "fields": {
         "name": "Lenovo Matebook",
         "description": "Быстрый, мощный, модульный. Для игр",
-        "image": "",
+        "image": "images/lenovo.jpg",
         "category": 1,
         "price": "199999.99",
+        "is_published": false,
+        "owner": null,
         "created_at": "2025-01-19T04:57:30.537Z",
-        "updated_at": "2025-01-19T04:57:30.537Z"
+        "updated_at": "2025-03-15T10:36:21.789Z"
     }
 },
 {
@@ -31,11 +35,13 @@
     "fields": {
         "name": "Apple Macbook",
         "description": "Стильный, мощный, удобный. Для тех, кто привык к комфорту",
-        "image": "",
+        "image": "images/macbook.jpg",
         "category": 1,
         "price": "299999.99",
+        "is_published": false,
+        "owner": null,
         "created_at": "2025-01-19T04:58:40.813Z",
-        "updated_at": "2025-01-19T04:58:40.813Z"
+        "updated_at": "2025-03-15T10:36:31.149Z"
     }
 },
 {
@@ -44,11 +50,13 @@
     "fields": {
         "name": "Sumsung Watch",
         "description": "Для тех, кто любит андроид",
-        "image": "",
+        "image": "images/samsung-galaxy-watch.jpg",
         "category": 3,
         "price": "25000.00",
+        "is_published": false,
+        "owner": null,
         "created_at": "2025-01-19T05:07:56.228Z",
-        "updated_at": "2025-01-19T05:07:56.228Z"
+        "updated_at": "2025-03-15T10:36:47.453Z"
     }
 },
 {
@@ -57,11 +65,13 @@
     "fields": {
         "name": "Appl Watch",
         "description": "Для тех, кто любит iphone",
-        "image": "",
+        "image": "images/Apple_Watch_Theme_HD_Desktop_Wallpaper_09_1280x1024.jpg",
         "category": 3,
         "price": "25000.00",
+        "is_published": false,
+        "owner": null,
         "created_at": "2025-01-19T05:08:27.912Z",
-        "updated_at": "2025-01-19T05:08:27.912Z"
+        "updated_at": "2025-03-15T10:38:10.965Z"
     }
 },
 {
@@ -70,11 +80,13 @@
     "fields": {
         "name": "Huawei Watch",
         "description": "Для тех, кто любит Huawei",
-        "image": "",
+        "image": "images/HUAWEI-Watch-3-Pro-1-1024x1024.jpg",
         "category": 3,
         "price": "20000.00",
+        "is_published": false,
+        "owner": null,
         "created_at": "2025-01-19T05:09:08.613Z",
-        "updated_at": "2025-01-19T05:09:08.613Z"
+        "updated_at": "2025-03-15T10:38:26.723Z"
     }
 },
 {
@@ -83,11 +95,13 @@
     "fields": {
         "name": "Sumsung Galaxy S24",
         "description": "Для любителей sumsung",
-        "image": "",
+        "image": "images/sumsung_galaxy_s24.jpg",
         "category": 2,
         "price": "100000.00",
+        "is_published": false,
+        "owner": null,
         "created_at": "2025-01-19T05:10:00.694Z",
-        "updated_at": "2025-01-19T05:10:00.694Z"
+        "updated_at": "2025-03-15T10:38:44.369Z"
     }
 },
 {
@@ -96,11 +110,13 @@
     "fields": {
         "name": "Huawei N9",
         "description": "Для тех, кто любит Huawei",
-        "image": "",
+        "image": "images/600009800528b0.webp",
         "category": 2,
         "price": "80000.00",
+        "is_published": false,
+        "owner": null,
         "created_at": "2025-01-19T05:11:32.852Z",
-        "updated_at": "2025-01-19T05:11:32.852Z"
+        "updated_at": "2025-03-15T10:39:55.788Z"
     }
 },
 {

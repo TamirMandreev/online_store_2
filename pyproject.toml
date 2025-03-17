@@ -12,6 +12,8 @@ python-dotenv = "^1.0.1"
 pillow = "^11.1.0"
 ipython = "^8.31.0"
 django = "4.2.2"
+redis = "^5.2.1"
+flake8 = "^7.1.2"
 
 
 [build-system]
